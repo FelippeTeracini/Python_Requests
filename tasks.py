@@ -29,8 +29,8 @@ def main(argv):
             sys.exit()
             server_address_required = False
         elif opt == '--task-create':
-            print(arg)
-            arguments = json.loads(arg)
+            with open(arg) as json_file:
+                arguments = json.load(json_file)
             print(arguments)
             r = requests.post(server_address + "/task",
                               data=json.dumps(arguments))
@@ -50,7 +50,8 @@ def main(argv):
             print(r.url)
             print(r.text)
         elif opt == '--task-update':
-            arguments = json.loads(arg)
+            with open(arg) as json_file:
+                arguments = json.load(json_file)
             r = requests.put(server_address + "/task" + "/" + task_id,
                              data=json.dumps(arguments))
             print(r.url)
